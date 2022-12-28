@@ -32,6 +32,27 @@ feature/signin 브랜치의 경우 app.post('/users/signin', ...)
 feature/signup 브랜치의 경우 app.post('/users/signup', ...)
 */
 
+app.post('/users/signin', async (req, res) => {
+  const { usersId, email } = req.body;
+
+  const user = await myDataSource.query(
+    `
+    SELECT
+      users.id
+    FROM
+      users
+    WHERE
+      users.email = ?
+   `, [ usersId, email ]
+   );
+	
+  if (!user) {
+    res.status(200).json({ message: "SIGNUP_REQUIRED" });
+  }
+	
+  return res.status(200).json({ userId: user.id});
+})
+
 app.post('/users/signup', async (req, res) => {
   const { username, email, password } = req.body
      await myDataSource.query(
