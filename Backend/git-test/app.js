@@ -32,6 +32,19 @@ feature/signin 브랜치의 경우 app.post('/users/signin', ...)
 feature/signup 브랜치의 경우 app.post('/users/signup', ...)
 */
 
+app.post('/users/signup', async (req, res) => {
+  const { username, email, password } = req.body
+    return await myDataSource.query(
+       `INSERT INTO
+        users (
+          username,
+          email,
+          password
+        ) VALUES (?, ?, ?)
+       `, [ username, email, password ]
+    );
+    
+});
 
 app.listen(PORT, () => {
   myDataSource.initialize()
