@@ -41,14 +41,14 @@ app.post('users/signin', async (req, res) => {
         users
       WHERE
         users.email = ?
-    `, [ email ]
+    `, [ email, password ]
   );
 
   if (!user) {
     res.json({ message : "SIGNUP_REQUIRED"});
   }
 
-  return res.json({ userId : user.id });
+  return res.json({ userId : user });
   
 });
 
