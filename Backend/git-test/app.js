@@ -33,7 +33,7 @@ feature/signup 브랜치의 경우 app.post('/users/signup', ...)
 */
 
 app.post('/users/signin', async (req, res) => {
-  const { email } = req.body;
+  const { usersId, email } = req.body;
 
   const user = await myDataSource.query(
     `
@@ -43,7 +43,7 @@ app.post('/users/signin', async (req, res) => {
       users
     WHERE
       users.email = ?
-   `, [ email ]
+   `, [ usersId, email ]
    );
 	
   if (!user) {
