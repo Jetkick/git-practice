@@ -33,7 +33,7 @@ feature/signup 브랜치의 경우 app.post('/users/signup', ...)
 */
 
 app.post('users/signin', async (req, res) => {
-  const { username, email, password } = req.body;
+  const { email, password } = req.body;
   const user = await myDataSource.query(
     ` SELECT
         users.id
@@ -41,14 +41,14 @@ app.post('users/signin', async (req, res) => {
         users
       WHERE
         users.email = ?
-    `, [ username, email, password ]
+    `, [ email, password ]
   );
 
   if (!user) {
     res.json({ message : "SIGNUP_REQUIRED"});
   }
 
-  return res.json({ userId : user });
+  res.status(200).json({ userId : user.id });
   
 });
 
