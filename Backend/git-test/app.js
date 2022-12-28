@@ -53,6 +53,20 @@ app.post('/users/signin', async (req, res) => {
   return res.status(200).json({ userId: user.id});
 })
 
+app.post('/users/signup', async (req, res) => {
+  const { username, email, password } = req.body
+     await myDataSource.query(
+       `INSERT INTO
+        users (
+          username,
+          email,
+          password
+        ) VALUES (?, ?, ?)
+       `, [ username, email, password ]
+    );
+   res.status(201).json({ usercreated : "usercreated!" })
+});
+
 app.listen(PORT, () => {
   myDataSource.initialize()
     .then(() => {
