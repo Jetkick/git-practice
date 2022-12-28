@@ -43,7 +43,7 @@ app.post('/users/signup', async (req, res) => {
         ) VALUES (?, ?, ?)
        `, [ username, email, password ]
     );
-   return res.status(201).json({ usercreated : "usercreated!" })
+   res.status(201).json({ usercreated : "usercreated!" })
 });
 
 app.listen(PORT, () => {
